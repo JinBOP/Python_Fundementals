@@ -4,26 +4,45 @@
 
 import random
 
-# ask the user to select the upper bound
-UpperBound = input("What is the upper bound? ")
-print("Upper bound: " + UpperBound)
-UpperBound = int(UpperBound)
+# ask the user to select the upper bound and ensure it is a valid input
+InvalidUpperBound = True # boolean is True or False
+while InvalidUpperBound:
+    UpperBound = input("What is the upper bound? ")
+    # check if upper bound is valid
+    if UpperBound.isdigit():
+        InvalidUpperBound = False
+        print("Upper bound: " + UpperBound)
+        UpperBound = int(UpperBound)
+    else:
+        print("Invalid input")
 
 # generate a random integer between 1 and the upper bound
 RandomNumber = random.randint(1, UpperBound)
 print("Random number: " + str(RandomNumber))
 
-# ask the user to guess the number
-UserGuess = input("Type a whole number between 1 and " + str(UpperBound) + ": ")
-print("Your guess: " + str(UserGuess))
+# start loop here
+UserGuess = None
+NumberOfGuesses = 1
+while UserGuess != RandomNumber:
 
-# check if user guess is equal to random number
-if int(UserGuess) == RandomNumber:
-    print("You guessed correctly!")
+    # ask the user to guess the number
+    UserGuess = input("Type a whole number between 1 and " + str(UpperBound) + ": ")
+    # check if guess is a digit
+    if UserGuess.isdigit():
+        print("Your guess: " + str(UserGuess))
+        UserGuess = int(UserGuess)
 
-# user guess is not equal to random number
-else:
-    print("Wrong!")
+    # check if user guess is equal to random number
+    if UserGuess == RandomNumber:
+        print("You guessed correctly!")
+        # exit loop here
+
+    # user guess is not equal to random number
+    else:
+        NumberOfGuesses += 1
+        print("Wrong!")
+
+print("Game Over, you took " + str(NumberOfGuesses) + " to guess correctly")
 
 # HighRange = 100
 # MidRange = int(HighRange/2)
